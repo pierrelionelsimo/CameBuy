@@ -1,0 +1,43 @@
+/* src/pages/Paiement.css */
+.paiement-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.btn-back {
+  background: #e5e7eb;
+  color: #111827;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.paiement-error,
+.paiement-success {
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.btn-pay-now {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  background: #1d4ed8;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-pay-now:hover {
+  background: #2563eb;
+}

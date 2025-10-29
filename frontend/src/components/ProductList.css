@@ -1,0 +1,10 @@
+/*  Conteneur principal des produits */
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px; /*  Espace entre les cartes */
+  padding: 40px 20px;
+  background-color: #f8f9fa;
+}

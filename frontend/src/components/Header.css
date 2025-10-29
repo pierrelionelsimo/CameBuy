@@ -1,0 +1,134 @@
+/* === HEADER GLOBAL === */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items:start;
+  height: 500px;
+  color: #fff;
+  padding: 15px 40px;
+  position: relative;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.35);
+
+  background : linear-gradient(rgba(11, 34, 57, 0.8), rgba(11, 34, 57, 0.7)),
+                  url('../assets/background_head.jpg') no-repeat center center;
+
+  background-size: cover ;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+
+
+.header-slogan {
+  font-size: 0.9rem;
+  color: #f1f1f1;
+  margin-top: 2px;
+  font-style: italic;
+}
+
+/* === LOGO === */
+.header-logo a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 2.6rem;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.header-logo a:hover {
+  color: #00bcd4;
+}
+
+/* === NAVIGATION === */
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  
+}
+
+/* Liens Connexion / Inscription */
+.nav-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.05rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  font-size: 25px;
+}
+
+.nav-link:hover {
+  color: #00bcd4;
+}
+
+/* === MESSAGE DE BIENVENUE === */
+.welcome-msg {
+  font-size: 1.15rem;
+  color: #f0f0f0;
+}
+
+.welcome-msg strong {
+  color: #00bcd4;
+}
+
+/* === BOUTON DÉCONNEXION === */
+.logout-btn {
+  background-color: #0086d4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.logout-btn:hover {
+  background-color: #b86a6a;
+  transform: translateY(-1px);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 20px;
+  }
+
+  .header-nav {
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 8px;
+  }
+
+  .nav-link, .logout-btn {
+    font-size: 0.95rem;
+  }
+}
+/* === TEXTE CENTRAL === */
+.header-center-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.header-center-text h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 5px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.header-center-text p {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #e0e0e0;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+  margin: 0;
+}

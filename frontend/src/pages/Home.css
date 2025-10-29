@@ -1,0 +1,291 @@
+/* ✅ Conteneur général */
+.home-container {
+  padding: 40px 20px;
+  background-color: #f8fafc;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ✅ En-tête de bienvenue */
+.welcome-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.welcome-header h1 {
+  font-size: 2rem;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+.brand {
+  color: #007bff;
+  font-weight: 700;
+}
+
+.welcome-user {
+  font-size: 1.1rem;
+  color: #444;
+}
+
+/* ✅ Bouton d’ajout */
+.actions {
+  margin-bottom: 25px;
+}
+
+.btn-add-product {
+  background-color: #007bff;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-add-product:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* ✅ Grille des produits */
+.products-section {
+  width: 100%;
+  max-width: 1200px;
+  text-align: center;
+}
+
+.products-section h2 {
+  font-size: 1.6rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* ✅ Grille fluide et bien espacée */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  justify-items: center;
+  padding: 10px;
+}
+
+/* ✅ Carte vide (aucun produit) */
+.no-products {
+  color: #777;
+  font-size: 1rem;
+  margin-top: 30px;
+}
+
+/* ✅ Modale d’ajout de produit */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: #555;
+}
+
+.close-modal:hover {
+  color: #000;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ✅ Responsive */
+@media (max-width: 768px) {
+  .welcome-header h1 {
+    font-size: 1.5rem;
+  }
+  .btn-add-product {
+    width: 100%;
+  }
+}
+
+/* === Animation décorative === */
+.loading-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0 60px 0;
+  gap: 15px;
+}
+
+
+/* === Animation d'intro === */
+.intro-banner {
+  text-align: center;
+  margin: 40px 0;
+  animation: fadeSlideDown 1.2s ease-in-out;
+}
+
+.intro-banner h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 10px;
+}
+
+.intro-banner p {
+  font-size: 1.3rem;
+  color: #007bff;
+  font-weight: 500;
+  animation: colorShift 4s infinite alternate ease-in-out;
+}
+
+/* === Animation de chargement === */
+.loader {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 50px 0;
+}
+
+.loader-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #007bff;
+  animation: bounce 1.2s infinite ease-in-out;
+}
+
+.loader-dot:nth-child(2) {
+  animation-delay: 0.2s;
+  background: #00c851;
+}
+
+.loader-dot:nth-child(3) {
+  animation-delay: 0.4s;
+  background: #ffbb33;
+}
+
+/* === Apparition animée des produits === */
+.animated-card {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.animated-card:hover {
+  transform: scale(1.03) translateY(-4px);
+  transition: transform 0.3s ease;
+}
+
+/* === Animations clés === */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes colorShift {
+  0% {
+    color: #007bff;
+  }
+  50% {
+    color: #00c851;
+  }
+  100% {
+    color: #ff4444;
+  }
+}
+
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: scale(0.7);
+    opacity: 0.7;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.cart-link {
+  position: fixed;
+  top: 50px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  padding: 8px 10px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s ease, transform 0.2s ease;
+  z-index: 100;
+}
+/* Badge rouge sur le panier */
+.cart-link-inner {
+  position: relative;
+  font-weight: 600;
+  color: #111827;
+  text-decoration: none;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  background-color: #ef4444;
+  color: white;
+  border-radius: 50%;
+  padding: 3px 8px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}

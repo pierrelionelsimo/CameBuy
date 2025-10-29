@@ -1,0 +1,193 @@
+/* === Conteneur principal === */
+.cart-container {
+  max-width: 600px;
+  margin: 60px auto;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  font-family: "Poppins", sans-serif;
+  color: #111827;
+  position: relative;
+}
+
+/* === Bouton Retour === */
+.btn-hom {
+  background-color: #1e3a8a;
+  color: #fff;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-bottom: 20px;
+  transition: background 0.3s ease;
+}
+.btn-hom:hover {
+  background-color: #2563eb;
+}
+
+/* === Titre === */
+.cart-container h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #111827;
+}
+
+/* === Liste du panier === */
+.cart-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* === Élément du panier === */
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f9fafb;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 15px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.cart-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* === Image produit === */
+.cart-item-image img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* === Détails du produit === */
+.cart-item-details {
+  flex: 1;
+  margin-left: 15px;
+}
+.cart-item-details h3 {
+  font-size: 1.1rem;
+  margin: 0 0 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cart-item-details .quantity {
+  background-color: #e0e7ff;
+  color: #1e3a8a;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.price {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #2563eb;
+}
+
+/* === Contrôle de quantité et actions inline === */
+.cart-actions-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Boutons + et - */
+.btn-minus,
+.btn-plus {
+  background-color: #f0f0f0;
+  border: none;
+  color: #333;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-minus:hover,
+.btn-plus:hover {
+  background-color: #3b82f6;
+  color: #fff;
+}
+
+/* Quantité affichée */
+.qty {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+/* Bouton supprimer */
+.btn-remove {
+  background-color: #ef4444;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.btn-remove:hover {
+  background-color: #dc2626;
+}
+
+/* === Footer du panier === */
+.cart-footer {
+  margin-top: 30px;
+  text-align: right;
+}
+
+.cart-total {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* === Actions footer === */
+.cart-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.btn-home,
+.btn-checkout {
+  background-color: #1e3a8a;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+.btn-home:hover,
+.btn-checkout:hover {
+  background-color: #2563eb;
+}
+
+/* Checkout spécifique */
+.btn-checkout {
+  background-color: #059669;
+}
+.btn-checkout:hover {
+  background-color: #10b981;
+}
+
+/* === Message panier vide === */
+.cart-container p {
+  text-align: center;
+  font-size: 1rem;
+  color: #6b7280;
+  margin-top: 30px;
+}

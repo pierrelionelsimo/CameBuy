@@ -187,20 +187,23 @@ EMAIL_HOST_USER = 'pierrelionelsimo@gmail.com'
 EMAIL_HOST_PASSWORD= 'caveiro'
 DEFAULT_FROM_EMAIL = 'CAMEBUY <pierrelionelsimo@gmail.com>'                             
 
-# Sécurité production
+import os
+import dj_database_url
+
 SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-key-change-me')
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost').split(',')
 
-# Base de données Railway (remplace automatiquement en prod)
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
 DATABASE_URL = os.environ.get('DATABASE_URL')
 if DATABASE_URL:
-    import dj_database_url
-    DATABASES['default'] = dj_database_url.parse(DATABASE_URL)
+    DATABASES['default'] = dj_database_url.parse(DATABASE_URL, conn_max_age=600)
 
-# Fichiers statiques
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# CORS — autoriser Vercel
 CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ORIGINS', 'http://localhost:5173').split(',')

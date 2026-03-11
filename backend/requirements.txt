@@ -9,3 +9,4 @@ whitenoise
 gunicorn
 Pillow
 requests
+python-decouple

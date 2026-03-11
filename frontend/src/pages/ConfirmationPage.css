@@ -1,20 +1,159 @@
-.confirmation-page {
-  max-width: 500px;
-  margin: 50px auto;
-  padding: 30px;
-  background: #f0f8ff;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap');
+
+.conf-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f4f6f9;
+  padding: 24px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.conf-card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 48px 40px;
+  max-width: 480px;
+  width: 100%;
   text-align: center;
-  font-family: "Segoe UI", sans-serif;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
+  animation: conf-pop 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.confirmation-page h2 {
-  color: #0f8b58;
-  margin-bottom: 20px;
+@keyframes conf-pop {
+  from { opacity: 0; transform: scale(0.92) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-.confirmation-page p {
-  font-size: 16px;
-  margin-bottom: 10px;
+/* === ICON === */
+.conf-icon-wrap {
+  width: 90px;
+  height: 90px;
+  background: #ecfdf5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.conf-icon {
+  color: #059669;
+  animation: conf-bounce 0.6s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes conf-bounce {
+  from { transform: scale(0.5); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+/* === TEXT === */
+.conf-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #0b2239;
+  margin: 0 0 10px;
+}
+
+.conf-sub {
+  font-size: 0.95rem;
+  color: #7a8898;
+  line-height: 1.6;
+  margin: 0 0 28px;
+}
+
+/* === DETAILS === */
+.conf-details {
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+.conf-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.conf-detail-label {
+  font-size: 0.82rem;
+  color: #8a96a3;
+  font-weight: 500;
+}
+
+.conf-detail-value {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0b2239;
+}
+
+.conf-detail-value--mono {
+  font-family: monospace;
+  font-size: 0.78rem;
+  color: #1a4a7a;
+  word-break: break-all;
+  text-align: right;
+}
+
+/* === ACTIONS === */
+.conf-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.conf-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  min-width: 140px;
+}
+
+.conf-btn--primary {
+  background: linear-gradient(135deg, #0b2239 0%, #1a4a7a 100%);
+  color: #fff;
+}
+
+.conf-btn--primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.conf-btn--secondary {
+  background: #f4f6f9;
+  color: #0b2239;
+  border: 1.5px solid #e5e8ed;
+}
+
+.conf-btn--secondary:hover {
+  border-color: #0b2239;
+  background: #fff;
+}
+
+@media (max-width: 400px) {
+  .conf-card {
+    padding: 36px 24px;
+  }
+
+  .conf-actions {
+    flex-direction: column;
+  }
 }

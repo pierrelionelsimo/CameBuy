@@ -1,49 +1,67 @@
 from django.contrib import admin
-from .models import Produit, Fournisseur, Categorie, Commande, Paiement, Panier, PanierItem
-
-
-@admin.register(Fournisseur)
-class FournisseurAdmin(admin.ModelAdmin):
-    list_display = ['nom', 'utilisateur', 'telephone', 'adresse']
-    search_fields = ['nom', 'utilisateur__username', 'telephone']
+from .models import (
+    Categorie, Produit, Fournisseur,
+    Commande, CommandeItem, Paiement,
+    Panier, PanierItem, Notification
+)
 
 
 @admin.register(Categorie)
 class CategorieAdmin(admin.ModelAdmin):
-    list_display = ['nom', 'description']
+    list_display  = ['id', 'nom']
     search_fields = ['nom']
+
+
+@admin.register(Fournisseur)
+class FournisseurAdmin(admin.ModelAdmin):
+    list_display    = ['id', 'nom', 'telephone', 'statut', 'is_validated', 'created_at']
+    list_filter     = ['statut', 'is_validated']
+    search_fields   = ['nom', 'utilisateur__username']
+    readonly_fields = ['created_at', 'date_validation']
 
 
 @admin.register(Produit)
 class ProduitAdmin(admin.ModelAdmin):
-    list_display = ['nom', 'prix', 'stock', 'categorie', 'fournisseur', 'cree_le']
-    list_filter = ['categorie', 'fournisseur', 'cree_le']
-    search_fields = ['nom', 'description']
-    readonly_fields = ['cree_le', 'modifie_le']
+    list_display    = ['id', 'nom', 'prix', 'stock', 'categorie', 'fournisseur', 'cree_le']
+    list_filter     = ['categorie', 'fournisseur']
+    search_fields   = ['nom']
+    readonly_fields = ['cree_le']
+
+
+class CommandeItemInline(admin.TabularInline):
+    model = CommandeItem
+    extra = 0
 
 
 @admin.register(Commande)
 class CommandeAdmin(admin.ModelAdmin):
-    list_display = ['id', 'client', 'date_commande', 'statut', 'total']
-    list_filter = ['statut', 'date_commande']
-    search_fields = ['client__username', 'id']
+    list_display    = ['id', 'client', 'statut', 'total', 'cree_le']
+    list_filter     = ['statut', 'cree_le']
+    search_fields   = ['client__username']
+    inlines         = [CommandeItemInline]
+    readonly_fields = ['cree_le']
 
 
 @admin.register(Paiement)
 class PaiementAdmin(admin.ModelAdmin):
-    list_display = ['id', 'commande', 'montant', 'statut', 'date_paiement']
-    list_filter = ['statut', 'date_paiement']
-    search_fields = ['commande__id']
+    list_display    = ['id', 'commande', 'montant', 'statut', 'cree_le']
+    list_filter     = ['statut', 'cree_le']
+    readonly_fields = ['cree_le']
 
 
 @admin.register(Panier)
 class PanierAdmin(admin.ModelAdmin):
-    list_display = ['utilisateur', 'date_creation', 'date_modification']
-    search_fields = ['utilisateur__username']
+    list_display = ['id', 'utilisateur']
 
 
 @admin.register(PanierItem)
 class PanierItemAdmin(admin.ModelAdmin):
-    list_display = ['panier', 'produit', 'quantite', 'ajoute_le']
-    list_filter = ['ajoute_le']
-    search_fields = ['panier__utilisateur__username', 'produit__nom']
+    list_display = ['id', 'panier', 'produit', 'quantite']
+
+
+@admin.register(Notification)
+class NotificationAdmin(admin.ModelAdmin):
+    list_display    = ['id', 'destinataire', 'type_notif', 'titre', 'lu', 'cree_le']
+    list_filter     = ['type_notif', 'lu', 'cree_le']
+    search_fields   = ['titre', 'destinataire__nom']
+    readonly_fields = ['cree_le']

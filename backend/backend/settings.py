@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,7 +32,7 @@ ALLOWED_HOSTS = []
 from datetime import timedelta
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),  # 1 heure
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=90),  # 1 heure 30min
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
 
@@ -47,6 +49,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'products',
     'corsheaders',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -71,6 +75,13 @@ REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'rest_framework.views.exception_handler',
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
+    ],
+    
+    'DEFAULT_FILTER_BACKENDS': [
+    'django_filters.rest_framework.DjangoFilterBackend',
+    'rest_framework.filters.SearchFilter',
+    'rest_framework.filters.OrderingFilter',
+        
     ],
 }
 
@@ -106,8 +117,12 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'camebuy_db',
+        'USER':  'lionel',
+        'PASSWORD': 'caveiro',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -158,3 +173,34 @@ import os
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+MTN_API_USER="0222b6c2-e40f-4258-9dcc-aba7a86f3dd6"
+MTN_API_KEY="378148437289449bba01f16ad30afdd2"
+MTN_SUBSCRIPTION_KEY="18c35ac0e55e46c88988f586cd6b69ab"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS =  True
+EMAIL_HOST_USER = 'pierrelionelsimo@gmail.com'
+EMAIL_HOST_PASSWORD= 'caveiro'
+DEFAULT_FROM_EMAIL = 'CAMEBUY <pierrelionelsimo@gmail.com>'                             
+
+# Sécurité production
+SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-key-change-me')
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost').split(',')
+
+# Base de données Railway (remplace automatiquement en prod)
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if DATABASE_URL:
+    import dj_database_url
+    DATABASES['default'] = dj_database_url.parse(DATABASE_URL)
+
+# Fichiers statiques
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# CORS — autoriser Vercel
+CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ORIGINS', 'http://localhost:5173').split(',')

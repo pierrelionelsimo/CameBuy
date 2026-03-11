@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap');
+
+.np-page {
+  min-height: 100vh;
+  background: var(--bg-primary, #f4f6f9);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text-primary, #0b2239);
+}
+
+/* ── Header ── */
+.np-header {
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px 24px;
+  background: var(--bg-card, #fff);
+  border-bottom: 1px solid var(--border, #e5e8ed);
+  position: sticky; top: 0; z-index: 50;
+}
+.np-back {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--bg-primary, #f4f6f9);
+  border: 1px solid var(--border, #e5e8ed);
+  color: var(--text-secondary, #5a6a7a);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0; transition: all 0.18s;
+}
+.np-back:hover { border-color: var(--accent, #4db8e8); color: var(--accent, #4db8e8); }
+
+.np-header-title {
+  display: flex; align-items: center; gap: 10px; flex: 1;
+  color: var(--accent, #4db8e8);
+}
+.np-header-title h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.15rem; font-weight: 700;
+  color: var(--text-primary, #0b2239);
+  margin: 0;
+}
+.np-header-badge {
+  display: block; font-size: 0.72rem; font-weight: 600;
+  color: var(--accent, #4db8e8); margin-top: 1px;
+}
+
+.np-header-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.np-icon-btn {
+  width: 34px; height: 34px; border-radius: 9px;
+  background: var(--bg-primary, #f4f6f9);
+  border: 1px solid var(--border, #e5e8ed);
+  color: var(--text-muted, #9aa5b4);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.18s;
+}
+.np-icon-btn:hover { border-color: var(--accent, #4db8e8); color: var(--accent, #4db8e8); }
+
+.np-read-all {
+  display: flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 9px;
+  background: rgba(77,184,232,0.08);
+  border: 1px solid rgba(77,184,232,0.2);
+  color: var(--accent, #4db8e8);
+  font-size: 0.8rem; font-weight: 600;
+  cursor: pointer; transition: all 0.18s;
+  font-family: 'DM Sans', sans-serif;
+}
+.np-read-all:hover { background: rgba(77,184,232,0.16); }
+.np-read-all:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Filters ── */
+.np-filters {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  padding: 14px 24px;
+  background: var(--bg-card, #fff);
+  border-bottom: 1px solid var(--border, #e5e8ed);
+}
+.np-filter {
+  padding: 5px 13px; border-radius: 20px;
+  background: var(--bg-primary, #f4f6f9);
+  border: 1px solid var(--border, #e5e8ed);
+  color: var(--text-muted, #9aa5b4);
+  font-size: 0.78rem; font-weight: 500;
+  cursor: pointer; transition: all 0.18s;
+  font-family: 'DM Sans', sans-serif;
+}
+.np-filter:hover { border-color: var(--accent, #4db8e8); color: var(--accent, #4db8e8); }
+.np-filter--active {
+  background: rgba(77,184,232,0.1);
+  border-color: rgba(77,184,232,0.3);
+  color: var(--accent, #4db8e8); font-weight: 600;
+}
+
+/* ── Content ── */
+.np-content { padding: 20px 24px; max-width: 760px; margin: 0 auto; }
+
+.np-list { display: flex; flex-direction: column; gap: 10px; }
+
+/* ── Card ── */
+.np-card {
+  display: flex; align-items: flex-start; gap: 14px;
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--border, #e5e8ed);
+  border-radius: 16px; padding: 16px;
+  cursor: pointer; position: relative; overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+.np-card:hover {
+  transform: translateX(3px);
+  box-shadow: var(--shadow, 0 4px 16px rgba(0,0,0,0.08));
+  border-color: rgba(77,184,232,0.3);
+}
+.np-card--read {
+  background: var(--bg-primary, #f4f6f9);
+  cursor: default;
+}
+.np-card--read:hover { transform: none; box-shadow: none; }
+
+/* Barre colorée gauche */
+.np-card-bar {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 4px; background: var(--nc, #4db8e8);
+  border-radius: 16px 0 0 16px;
+  opacity: 1; transition: opacity 0.2s;
+}
+.np-card--read .np-card-bar { opacity: 0.3; }
+
+/* Icône */
+.np-card-icon {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: color-mix(in srgb, var(--nc, #4db8e8) 12%, transparent);
+  color: var(--nc, #4db8e8);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-left: 8px;
+}
+.np-card--read .np-card-icon { filter: grayscale(0.5); opacity: 0.7; }
+
+/* Corps */
+.np-card-body { flex: 1; min-width: 0; }
+.np-card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 5px; gap: 8px;
+}
+.np-card-type {
+  font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--nc, #4db8e8); background: color-mix(in srgb, var(--nc, #4db8e8) 12%, transparent);
+  padding: 2px 7px; border-radius: 5px;
+}
+.np-card-time {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 0.72rem; color: var(--text-muted, #9aa5b4);
+}
+.np-card-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.92rem; font-weight: 700;
+  color: var(--text-primary, #0b2239);
+  margin: 0 0 8px; line-height: 1.3;
+}
+.np-card--read .np-card-title { color: var(--text-muted, #9aa5b4); }
+
+.np-card-msg p {
+  font-size: 0.83rem; color: var(--text-secondary, #5a6a7a);
+  line-height: 1.55; margin: 0 0 2px;
+}
+.np-card--read .np-card-msg p { color: var(--text-muted, #9aa5b4); }
+
+.np-card-from {
+  display: block; font-size: 0.72rem; color: var(--text-muted, #9aa5b4);
+  margin-top: 8px; font-style: italic;
+}
+
+/* Dot non-lu */
+.np-unread-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--nc, #4db8e8);
+  flex-shrink: 0; margin-top: 4px;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--nc, #4db8e8) 20%, transparent);
+}
+
+/* ── États ── */
+.np-loading, .np-empty {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 14px; padding: 80px 20px; text-align: center;
+  color: var(--text-muted, #9aa5b4);
+}
+.np-empty h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.05rem; font-weight: 700;
+  color: var(--text-secondary, #5a6a7a); margin: 0;
+}
+.np-empty p {
+  font-size: 0.85rem; max-width: 360px; line-height: 1.6; margin: 0;
+}
+
+.np-spin { animation: np-spin 1s linear infinite; }
+@keyframes np-spin { to { transform: rotate(360deg); } }

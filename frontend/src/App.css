@@ -1,45 +1,151 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Space+Grotesk:wght@400;500;600;700&family=Raleway:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&display=swap');
+
+/* ══════════════════════════════════════════════════════════
+   CSS VARIABLES (thème clair par défaut — override par ThemeContext)
+══════════════════════════════════════════════════════════ */
+:root {
+  --bg-primary: #f4f6f9;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --text-primary: #0b2239;
+  --text-secondary: #5a6a7a;
+  --text-muted: #9aa5b4;
+  --accent: #4db8e8;
+  --accent-hover: #29a8dd;
+  --border: #e5e8ed;
+  --shadow: 0 4px 24px rgba(11,34,57,0.10);
+  --shadow-lg: 0 8px 40px rgba(11,34,57,0.15);
+  --input-bg: #f8fafc;
+  --nav-bg: rgba(255,255,255,0.95);
+  --gradient-animated-1: #c8d8f0;
+  --gradient-animated-2: #e8f4fd;
+  --gradient-animated-3: #dde8f5;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+html {
+  scroll-behavior: smooth;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+body {
+  font-family: 'DM Sans', 'Space Grotesk', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  transition: background 0.4s ease, color 0.4s ease;
 }
 
-.card {
-  padding: 2em;
+/* ══════════════════════════════════════════════════════════
+   ANIMATED FLUID GRADIENT BACKGROUND
+══════════════════════════════════════════════════════════ */
+.app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: var(--bg-primary);
 }
 
-.read-the-docs {
-  color: #888;
+/* Le fond animé est un pseudo-element derrière tout */
+.app-root::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse at 20% 20%, var(--gradient-animated-1) 0%, transparent 55%),
+              radial-gradient(ellipse at 80% 80%, var(--gradient-animated-2) 0%, transparent 55%),
+              radial-gradient(ellipse at 50% 50%, var(--gradient-animated-3) 0%, transparent 70%),
+              var(--bg-primary);
+  background-attachment: fixed;
+  animation: app-bg-flow 18s ease-in-out infinite alternate;
+  opacity: 0.7;
 }
-.page-content {
-  padding-bottom: 70px; /* la hauteur du footer */
+
+@keyframes app-bg-flow {
+  0%   { background-position: 0% 0%, 100% 100%, 50% 50%; }
+  33%  { background-position: 30% 60%, 70% 30%, 80% 20%; }
+  66%  { background-position: 70% 20%, 20% 80%, 30% 70%; }
+  100% { background-position: 100% 100%, 0% 0%, 50% 50%; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   LAYOUT
+══════════════════════════════════════════════════════════ */
+.main-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Image décorative cercle */
+.cercle-image-container {
+  position: absolute;
+  bottom: -55px;
+  right: 56px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid rgba(255,255,255,0.22);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.28);
+  z-index: 20;
+  transition: transform 0.3s ease;
+}
+.cercle-image-container:hover { transform: scale(1.05); }
+.cercle-image-container img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+
+.container {
+  flex: 1;
+  width: 100%;
+  transition: background 0.4s ease;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SMOOTH THEME TRANSITIONS
+══════════════════════════════════════════════════════════ */
+[data-theme] * {
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SCROLLBAR GLOBAL
+══════════════════════════════════════════════════════════ */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ══════════════════════════════════════════════════════════
+   SELECTION
+══════════════════════════════════════════════════════════ */
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ══════════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .cercle-image-container { width: 110px; height: 110px; bottom: -38px; right: 20px; }
+}
+@media (max-width: 480px) {
+  .cercle-image-container { display: none; }
 }

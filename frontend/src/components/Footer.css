@@ -1,9 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700&family=DM+Sans:wght@400;500&display=swap');
+
 .footer {
-  background-color: #333;
-  color: white;
-  text-align: center;
-  padding: 15px 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+  background: linear-gradient(135deg, #0b2239 0%, #1a4a7a 100%);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 18px 32px;
+  margin-top: auto;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.footer-brand {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #4db8e8;
+}
+
+.footer-sep {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.footer-text {
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .footer-inner {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+  }
 }

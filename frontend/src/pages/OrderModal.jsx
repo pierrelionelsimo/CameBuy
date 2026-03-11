@@ -1,13 +1,13 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../contexts/CartContext";
-import api from "../services/api"; // Axios avec JWT
+import api from "../services/api";
+import { X, ShoppingBag, AlertCircle, Loader } from "lucide-react";
 import "./OrderModal.css";
 
 function OrderModal({ cart, onClose }) {
   const { removeAllOfItem } = useContext(CartContext);
   const navigate = useNavigate();
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -29,16 +29,12 @@ function OrderModal({ cart, onClose }) {
       });
 
       if (response.status === 201 || response.status === 200) {
-        // ✅ Vider le panier
+        // Vider le panier
         cart.forEach((item) => removeAllOfItem(item));
-
         const commandeId = response.data.id;
-
-        // 🔁 Redirection automatique vers la page de paiement
-        navigate("/paiement", { state: { commandeId, total } });
-
-        // Fermer la modal après redirection
         onClose();
+        // Rediriger vers la page de paiement
+        navigate("/paiement", { state: { commandeId, total } });
       } else {
         setError("Erreur lors de la création de la commande.");
       }
@@ -54,52 +50,79 @@ function OrderModal({ cart, onClose }) {
   };
 
   return (
-    <div className="order-modal-overlay" onClick={onClose}>
-      <div className="order-modal" onClick={(e) => e.stopPropagation()}>
-        <button className="close-modal" onClick={onClose}>
-          ×
-        </button>
-
-        <h2>Récapitulatif de la commande</h2>
+    <div className="om-overlay" onClick={onClose}>
+      <div className="om-modal" onClick={(e) => e.stopPropagation()}>
+        {/* Header */}
+        <div className="om-header">
+          <div className="om-header-left">
+            <ShoppingBag size={20} />
+            <h2 className="om-title">Récapitulatif</h2>
+          </div>
+          <button className="om-close-btn" onClick={onClose}>
+            <X size={18} />
+          </button>
+        </div>
 
         {cart.length === 0 ? (
-          <p>Votre panier est vide.</p>
+          <p className="om-empty">Votre panier est vide.</p>
         ) : (
           <>
-            <ul className="order-items">
+            {/* Liste des articles */}
+            <ul className="om-list">
               {cart.map((item) => (
-                <li key={item.id} className="order-item">
+                <li key={item.id} className="om-item">
                   <img
                     src={item.image || "/placeholder.png"}
                     alt={item.nom}
-                    className="order-item-image"
+                    className="om-item-img"
+                    onError={(e) => (e.target.src = "/placeholder.png")}
                   />
-                  <div className="order-item-info">
-                    <span>{item.nom}</span>
-                    <span>×{item.quantity}</span>
-                    <span>
-                      {(item.prix * item.quantity).toLocaleString()} FCFA
-                    </span>
+                  <div className="om-item-info">
+                    <span className="om-item-name">{item.nom}</span>
+                    <span className="om-item-qty">×{item.quantity}</span>
                   </div>
+                  <span className="om-item-price">
+                    {(item.prix * item.quantity).toLocaleString()} FCFA
+                  </span>
                 </li>
               ))}
             </ul>
 
-            <div className="order-total">
-              Total : <strong>{total.toLocaleString()} FCFA</strong>
+            {/* Séparateur + Total */}
+            <div className="om-total-row">
+              <span className="om-total-label">Total de la commande</span>
+              <span className="om-total-amount">
+                {total.toLocaleString()} FCFA
+              </span>
             </div>
 
-            {error && <div className="order-error">{error}</div>}
+            {/* Erreur */}
+            {error && (
+              <div className="om-error">
+                <AlertCircle size={15} />
+                {error}
+              </div>
+            )}
 
-            <div className="order-actions">
-              <button
-                className="btn-confirm-order"
-                onClick={handleConfirmOrder}
-                disabled={loading}
-              >
-                {loading ? "Validation..." : "Confirmer la commande"}
-              </button>
-            </div>
+            {/* Bouton confirmer */}
+            <button
+              className="om-confirm-btn"
+              onClick={handleConfirmOrder}
+              disabled={loading}
+            >
+              {loading ? (
+                <span className="om-spinner-wrap">
+                  <Loader size={16} className="om-spin" />
+                  Validation...
+                </span>
+              ) : (
+                "Confirmer la commande"
+              )}
+            </button>
+
+            <button className="om-cancel-btn" onClick={onClose}>
+              Annuler
+            </button>
           </>
         )}
       </div>

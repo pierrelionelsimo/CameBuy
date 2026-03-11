@@ -1,134 +1,338 @@
-/* === HEADER GLOBAL === */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items:start;
-  height: 500px;
-  color: #fff;
-  padding: 15px 40px;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Space+Grotesk:wght@400;500;600;700&family=Raleway:ital,wght@0,400;1,400&display=swap');
+
+/* ══════════════════════════════════════════════════════════
+   HEADER ROOT
+══════════════════════════════════════════════════════════ */
+.hdr {
   position: relative;
-  top: 0;
-  z-index: 10;
-  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.35);
-
-  background : linear-gradient(rgba(11, 34, 57, 0.8), rgba(11, 34, 57, 0.7)),
-                  url('../assets/background_head.jpg') no-repeat center center;
-
-  background-size: cover ;
-  border-bottom-left-radius: 40px;
-  border-bottom-right-radius: 40px;
+  width: 100%;
+  overflow: visible; /* important for dropdowns */
+  border-bottom-left-radius: 28px;
+  border-bottom-right-radius: 28px;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.22);
+  font-family: 'Space Grotesk', sans-serif;
+  z-index: 100;
 }
 
-
-.header-slogan {
-  font-size: 0.9rem;
-  color: #f1f1f1;
-  margin-top: 2px;
-  font-style: italic;
+/* Animated gradient background */
+.hdr-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(270deg, #020810 0%, #0b2239 35%, #0d2a4a 65%, #051020 100%);
+  background-size: 400% 400%;
+  animation: hdr-anim 12s ease infinite;
+  border-bottom-left-radius: 28px;
+  border-bottom-right-radius: 28px;
+  z-index: 0;
+}
+@keyframes hdr-anim {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-/* === LOGO === */
-.header-logo a {
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 2.6rem;
-  font-weight: bold;
-  transition: color 0.3s ease;
+/* Grain overlay */
+.hdr-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  border-bottom-left-radius: 28px;
+  border-bottom-right-radius: 28px;
 }
 
-.header-logo a:hover {
-  color: #00bcd4;
-}
-
-/* === NAVIGATION === */
-.header-nav {
+/* ── INNER ROW ── */
+.hdr-inner {
+  position: relative; z-index: 10;
   display: flex;
   align-items: center;
-  gap: 25px;
-  
+  justify-content: space-between;
+  padding: 14px 28px;
+  gap: 12px;
 }
 
-/* Liens Connexion / Inscription */
-.nav-link {
-  color: #ffffff;
+/* ── LOGO ── */
+.hdr-logo {
   text-decoration: none;
-  font-size: 1.05rem;
-  font-weight: 500;
-  transition: color 0.3s ease;
-  font-size: 25px;
+  display: flex; align-items: baseline;
+  gap: 0; flex-shrink: 0;
+  line-height: 1;
 }
-
-.nav-link:hover {
-  color: #00bcd4;
+.hdr-logo-cam {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 900; color: #ffffff;
+  letter-spacing: -1px;
+  transition: color 0.3s;
 }
-
-/* === MESSAGE DE BIENVENUE === */
-.welcome-msg {
-  font-size: 1.15rem;
-  color: #f0f0f0;
+.hdr-logo-buy {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 700; color: #4db8e8;
+  letter-spacing: -1px;
+  transition: color 0.3s;
 }
-
-.welcome-msg strong {
-  color: #00bcd4;
+.hdr-logo-dot {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+  font-weight: 900; color: #ef4444;
 }
+.hdr-logo:hover .hdr-logo-cam { color: #4db8e8; }
+.hdr-logo:hover .hdr-logo-buy { color: #fff; }
 
-/* === BOUTON DÉCONNEXION === */
-.logout-btn {
-  background-color: #0086d4;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 14px;
-  font-size: 1.15rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.25s ease;
+/* ── CENTER TEXT ── */
+.hdr-center {
+  flex: 1; text-align: center;
+  /* Disparaît sur mobile via media query */
 }
-
-.logout-btn:hover {
-  background-color: #b86a6a;
-  transform: translateY(-1px);
-}
-
-/* === RESPONSIVE === */
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 15px 20px;
-  }
-
-  .header-nav {
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-top: 8px;
-  }
-
-  .nav-link, .logout-btn {
-    font-size: 0.95rem;
-  }
-}
-/* === TEXTE CENTRAL === */
-.header-center-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-.header-center-text h1 {
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 5px;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
-}
-
-.header-center-text p {
-  font-size: 1.2rem;
-  font-weight: 400;
-  color: #e0e0e0;
-  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+.hdr-tagline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(0.95rem, 2vw, 1.3rem);
+  font-weight: 700; color: #fff;
   margin: 0;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.35);
+}
+.hdr-slogan {
+  font-family: 'Raleway', sans-serif;
+  font-style: italic;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.5);
+  margin: 2px 0 0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   RIGHT CONTROLS — TOUJOURS VISIBLES
+══════════════════════════════════════════════════════════ */
+.hdr-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* Bouton icône générique */
+.hdr-icon-btn {
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+  background: rgba(255,255,255,0.09);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: #fff;
+  height: 34px;
+  min-width: 34px;
+  padding: 0 9px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem; font-weight: 600;
+  transition: background 0.2s, border-color 0.2s;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.hdr-icon-btn:hover {
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(255,255,255,0.28);
+}
+
+.hdr-lang-btn { min-width: 56px; }
+
+/* Cart badge */
+.hdr-cart-btn { position: relative; }
+.hdr-badge {
+  position: absolute; top: -5px; right: -5px;
+  background: #ef4444; color: #fff;
+  font-size: 0.6rem; font-weight: 700;
+  min-width: 17px; height: 17px;
+  border-radius: 8px; padding: 0 3px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Space Grotesk', sans-serif;
+  animation: badge-pop 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+@keyframes badge-pop { from { transform: scale(0); } to { transform: scale(1); } }
+
+/* Theme dropdown */
+.hdr-theme-wrap { position: relative; }
+.hdr-dd-backdrop { position: fixed; inset: 0; z-index: 149; }
+.hdr-theme-dd {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: rgba(8, 18, 36, 0.97);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 150;
+  min-width: 136px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+  animation: dd-drop 0.2s cubic-bezier(0.22,1,0.36,1);
+}
+@keyframes dd-drop {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hdr-theme-opt {
+  display: flex; align-items: center; gap: 8px;
+  width: 100%; padding: 9px 14px;
+  background: none; border: none;
+  color: rgba(255,255,255,0.75);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.8rem; font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  text-align: left;
+}
+.hdr-theme-opt:hover { background: rgba(255,255,255,0.07); color: #fff; }
+.hdr-theme-opt.active { color: #4db8e8; }
+
+/* Hamburger — visible seulement sur mobile */
+.hdr-hamburger {
+  display: none;
+  background: rgba(255,255,255,0.09);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: #fff;
+  width: 34px; height: 34px;
+  border-radius: 9px; cursor: pointer;
+  align-items: center; justify-content: center;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.hdr-hamburger:hover { background: rgba(255,255,255,0.18); }
+
+/* ══════════════════════════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════════════════════════ */
+.hdr-nav {
+  position: relative; z-index: 10;
+  display: flex; align-items: center;
+  gap: 4px;
+  padding: 8px 28px 14px;
+  flex-wrap: wrap;
+}
+
+.hdr-welcome {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.65);
+  margin-right: 6px;
+}
+.hdr-welcome strong { color: #4db8e8; font-weight: 600; }
+
+.hdr-link {
+  font-size: 0.85rem; font-weight: 500;
+  color: rgba(255,255,255,0.78);
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+.hdr-link:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.09);
+  border-color: rgba(255,255,255,0.14);
+}
+.hdr-link--cta {
+  background: rgba(77,184,232,0.18);
+  border-color: rgba(77,184,232,0.35);
+  color: #4db8e8;
+}
+.hdr-link--cta:hover {
+  background: rgba(77,184,232,0.32);
+  border-color: #4db8e8;
+  color: #fff;
+}
+
+.hdr-logout {
+  display: flex; align-items: center; gap: 5px;
+  margin-left: auto;
+  background: rgba(239,68,68,0.12);
+  border: 1px solid rgba(239,68,68,0.28);
+  color: #fca5a5;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem; font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.hdr-logout:hover {
+  background: rgba(239,68,68,0.28);
+  border-color: #ef4444;
+  color: #fff;
+}
+
+/* Mobile nav backdrop */
+.hdr-nav-backdrop {
+  display: none;
+}
+
+/* ══════════════════════════════════════════════════════════
+   RESPONSIVE — TABLET (≤ 900px)
+══════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .hdr-center { display: none; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   RESPONSIVE — MOBILE (≤ 640px)
+   Les contrôles (thème, langue, notifs, cart) restent visibles.
+   Le menu nav passe en panneau coulissant.
+══════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .hdr-inner { padding: 12px 16px; }
+  .hdr-nav { display: none; }
+
+  .hdr-hamburger { display: flex; }
+
+  /* Nav mobile : panneau plein largeur sous le header */
+  .hdr-nav--open {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 16px 16px;
+    gap: 6px;
+    background: rgba(6, 14, 28, 0.97);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    position: absolute;
+    top: 100%;
+    left: 0; right: 0;
+    z-index: 200;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+    animation: nav-slide 0.25s cubic-bezier(0.22,1,0.36,1);
+  }
+  @keyframes nav-slide {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hdr-nav-backdrop {
+    display: block;
+    position: fixed; inset: 0;
+    z-index: 199;
+    background: rgba(0,0,0,0.25);
+  }
+
+  .hdr-link {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.07);
+    font-size: 0.9rem;
+  }
+  .hdr-welcome { padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 4px; }
+  .hdr-logout { margin-left: 0; margin-top: 4px; padding: 10px 14px; border-radius: 10px; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   RESPONSIVE — PETIT MOBILE (≤ 400px)
+   Réduire encore les boutons de contrôle
+══════════════════════════════════════════════════════════ */
+@media (max-width: 400px) {
+  .hdr-inner { padding: 10px 12px; gap: 8px; }
+  .hdr-right { gap: 4px; }
+  .hdr-icon-btn { height: 30px; min-width: 30px; padding: 0 7px; font-size: 0.7rem; }
+  .hdr-lang-btn { min-width: 46px; }
+  /* Masquer le texte du bouton langue, garder juste l'icône */
+  .hdr-lang-btn span { display: none; }
+  .hdr-lang-btn { min-width: 30px; }
+  .hdr-logo-cam, .hdr-logo-buy { font-size: 1.35rem; }
+  .hdr-logo-dot { font-size: 1.5rem; }
 }

@@ -57,3 +57,5 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
             return obj.fournisseur.utilisateur == request.user
 
         return False
+    
+    

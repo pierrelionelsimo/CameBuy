@@ -1,338 +1,403 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Space+Grotesk:wght@400;500;600;700&family=Raleway:ital,wght@0,400;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
 
-/* ══════════════════════════════════════════════════════════
-   HEADER ROOT
-══════════════════════════════════════════════════════════ */
-.hdr {
-  position: relative;
-  width: 100%;
-  overflow: visible; /* important for dropdowns */
-  border-bottom-left-radius: 28px;
-  border-bottom-right-radius: 28px;
-  box-shadow: 0 6px 32px rgba(0,0,0,0.22);
-  font-family: 'Space Grotesk', sans-serif;
-  z-index: 100;
+/* ══════════════════════════════════════
+   VARIABLES
+══════════════════════════════════════ */
+:root {
+  --hdr-height: 70px;
+  --hdr-yellow: #2e86c0;
+  --hdr-accent: #00bcd4;
+  --hdr-dark:   #1a1a2e;
+  --hdr-tr:     all 0.25s ease;
 }
 
-/* Animated gradient background */
+/* ══════════════════════════════════════
+   HEADER WRAPPER
+══════════════════════════════════════ */
+.hdr {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  font-family: 'Nunito', sans-serif;
+  background: transparent;
+}
+
+/* Fond animé derrière le header */
 .hdr-bg {
-  position: absolute; inset: 0;
-  background: linear-gradient(270deg, #020810 0%, #0b2239 35%, #0d2a4a 65%, #051020 100%);
-  background-size: 400% 400%;
-  animation: hdr-anim 12s ease infinite;
-  border-bottom-left-radius: 28px;
-  border-bottom-right-radius: 28px;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(11,34,57,0.97) 0%, rgba(15,52,96,0.97) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
   z-index: 0;
 }
-@keyframes hdr-anim {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
 
-/* Grain overlay */
-.hdr-bg::after {
-  content: '';
-  position: absolute; inset: 0;
-  opacity: 0.06;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  pointer-events: none;
-  border-bottom-left-radius: 28px;
-  border-bottom-right-radius: 28px;
-}
-
-/* ── INNER ROW ── */
+/* ══════════════════════════════════════
+   BARRE PRINCIPALE (logo + center + right)
+══════════════════════════════════════ */
 .hdr-inner {
-  position: relative; z-index: 10;
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 28px;
+  height: var(--hdr-height);
+  padding: 0 28px;
   gap: 12px;
 }
 
-/* ── LOGO ── */
+/* ══════════════════════════════════════
+   LOGO
+══════════════════════════════════════ */
 .hdr-logo {
   text-decoration: none;
-  display: flex; align-items: baseline;
-  gap: 0; flex-shrink: 0;
-  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  flex-shrink: 0;
+  transition: var(--hdr-tr);
 }
+.hdr-logo:hover { opacity: 0.85; }
+
 .hdr-logo-cam {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.5rem, 3vw, 2.1rem);
-  font-weight: 900; color: #ffffff;
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: #ffffff;
   letter-spacing: -1px;
-  transition: color 0.3s;
 }
 .hdr-logo-buy {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.5rem, 3vw, 2.1rem);
-  font-weight: 700; color: #4db8e8;
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--hdr-yellow);
   letter-spacing: -1px;
-  transition: color 0.3s;
 }
 .hdr-logo-dot {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.6rem, 3.2vw, 2.3rem);
-  font-weight: 900; color: #ef4444;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--hdr-accent);
+  line-height: 1;
 }
-.hdr-logo:hover .hdr-logo-cam { color: #4db8e8; }
-.hdr-logo:hover .hdr-logo-buy { color: #fff; }
 
-/* ── CENTER TEXT ── */
+/* ══════════════════════════════════════
+   CENTRE (desktop uniquement)
+══════════════════════════════════════ */
 .hdr-center {
-  flex: 1; text-align: center;
-  /* Disparaît sur mobile via media query */
+  flex: 1;
+  text-align: center;
+  padding: 0 16px;
 }
 .hdr-tagline {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(0.95rem, 2vw, 1.3rem);
-  font-weight: 700; color: #fff;
-  margin: 0;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.35);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 2px;
+  white-space: nowrap;
 }
 .hdr-slogan {
-  font-family: 'Raleway', sans-serif;
-  font-style: italic;
   font-size: 0.75rem;
-  color: rgba(255,255,255,0.5);
-  margin: 2px 0 0;
+  color: rgba(255,255,255,0.6);
+  font-style: italic;
+  margin: 0;
+  white-space: nowrap;
 }
 
-/* ══════════════════════════════════════════════════════════
-   RIGHT CONTROLS — TOUJOURS VISIBLES
-══════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════
+   RIGHT (icônes toujours visibles)
+══════════════════════════════════════ */
 .hdr-right {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   flex-shrink: 0;
+  position: relative;
+  z-index: 2;
 }
 
 /* Bouton icône générique */
 .hdr-icon-btn {
-  display: flex; align-items: center; justify-content: center; gap: 4px;
-  background: rgba(255,255,255,0.09);
-  border: 1px solid rgba(255,255,255,0.14);
-  color: #fff;
-  height: 34px;
-  min-width: 34px;
-  padding: 0 9px;
-  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  padding: 7px 10px;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: 'Nunito', sans-serif;
   cursor: pointer;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.75rem; font-weight: 600;
-  transition: background 0.2s, border-color 0.2s;
+  transition: var(--hdr-tr);
   white-space: nowrap;
-  text-decoration: none;
+  position: relative;
 }
 .hdr-icon-btn:hover {
-  background: rgba(255,255,255,0.18);
-  border-color: rgba(255,255,255,0.28);
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.3);
 }
 
-.hdr-lang-btn { min-width: 56px; }
+/* Panier */
+.hdr-cart-btn {
+  text-decoration: none;
+  color: #ffffff;
+}
+.hdr-cart-btn:hover { color: var(--hdr-yellow); }
 
-/* Cart badge */
-.hdr-cart-btn { position: relative; }
 .hdr-badge {
-  position: absolute; top: -5px; right: -5px;
-  background: #ef4444; color: #fff;
-  font-size: 0.6rem; font-weight: 700;
-  min-width: 17px; height: 17px;
-  border-radius: 8px; padding: 0 3px;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Space Grotesk', sans-serif;
-  animation: badge-pop 0.3s cubic-bezier(0.22,1,0.36,1);
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #ef4444;
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 800;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--hdr-dark);
 }
-@keyframes badge-pop { from { transform: scale(0); } to { transform: scale(1); } }
 
-/* Theme dropdown */
+/* Hamburger (mobile) — caché sur desktop */
+.hdr-hamburger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,204,0,0.15);
+  border: 1px solid rgba(255,204,0,0.3);
+  border-radius: 8px;
+  padding: 8px;
+  color: var(--hdr-yellow);
+  cursor: pointer;
+  transition: var(--hdr-tr);
+  flex-shrink: 0;
+}
+.hdr-hamburger:hover { background: rgba(255,204,0,0.25); }
+
+/* ══════════════════════════════════════
+   DROPDOWN THÈME
+══════════════════════════════════════ */
 .hdr-theme-wrap { position: relative; }
-.hdr-dd-backdrop { position: fixed; inset: 0; z-index: 149; }
+
+.hdr-dd-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+}
+
 .hdr-theme-dd {
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  background: rgba(8, 18, 36, 0.97);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(15,52,96,0.98);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.15);
   border-radius: 12px;
-  overflow: hidden;
-  z-index: 150;
-  min-width: 136px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.45);
-  animation: dd-drop 0.2s cubic-bezier(0.22,1,0.36,1);
+  padding: 6px;
+  min-width: 150px;
+  z-index: 20;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  animation: dd-pop 0.2s ease forwards;
 }
-@keyframes dd-drop {
-  from { opacity: 0; transform: translateY(-6px); }
-  to   { opacity: 1; transform: translateY(0); }
+@keyframes dd-pop {
+  from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
+
 .hdr-theme-opt {
-  display: flex; align-items: center; gap: 8px;
-  width: 100%; padding: 9px 14px;
-  background: none; border: none;
-  color: rgba(255,255,255,0.75);
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.8rem; font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 12px;
+  color: rgba(255,255,255,0.8);
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: 'Nunito', sans-serif;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition: var(--hdr-tr);
   text-align: left;
 }
-.hdr-theme-opt:hover { background: rgba(255,255,255,0.07); color: #fff; }
-.hdr-theme-opt.active { color: #4db8e8; }
+.hdr-theme-opt:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.hdr-theme-opt.active { background: rgba(255,204,0,0.2); color: var(--hdr-yellow); }
 
-/* Hamburger — visible seulement sur mobile */
-.hdr-hamburger {
-  display: none;
-  background: rgba(255,255,255,0.09);
-  border: 1px solid rgba(255,255,255,0.14);
-  color: #fff;
-  width: 34px; height: 34px;
-  border-radius: 9px; cursor: pointer;
-  align-items: center; justify-content: center;
-  transition: background 0.2s;
-  flex-shrink: 0;
-}
-.hdr-hamburger:hover { background: rgba(255,255,255,0.18); }
-
-/* ══════════════════════════════════════════════════════════
-   NAVIGATION
-══════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════
+   NAV (connexion / inscription / liens)
+══════════════════════════════════════ */
 .hdr-nav {
-  position: relative; z-index: 10;
-  display: flex; align-items: center;
-  gap: 4px;
-  padding: 8px 28px 14px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 28px 10px;
   flex-wrap: wrap;
 }
 
-.hdr-welcome {
-  font-size: 0.82rem;
-  color: rgba(255,255,255,0.65);
-  margin-right: 6px;
-}
-.hdr-welcome strong { color: #4db8e8; font-weight: 600; }
-
 .hdr-link {
-  font-size: 0.85rem; font-weight: 500;
-  color: rgba(255,255,255,0.78);
   text-decoration: none;
-  padding: 5px 12px;
-  border-radius: 8px;
+  color: rgba(255,255,255,0.85);
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
   border: 1px solid transparent;
-  transition: all 0.2s;
+  transition: var(--hdr-tr);
+  white-space: nowrap;
 }
 .hdr-link:hover {
-  color: #fff;
-  background: rgba(255,255,255,0.09);
-  border-color: rgba(255,255,255,0.14);
+  color: #ffffff;
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.2);
 }
+
+/* Bouton CTA Inscription */
 .hdr-link--cta {
-  background: rgba(77,184,232,0.18);
-  border-color: rgba(77,184,232,0.35);
-  color: #4db8e8;
+  background: var(--hdr-yellow);
+  color: var(--hdr-dark) !important;
+  font-weight: 800;
+  border-color: var(--hdr-yellow);
 }
 .hdr-link--cta:hover {
-  background: rgba(77,184,232,0.32);
-  border-color: #4db8e8;
-  color: #fff;
+  background: #423f72;
+  border-color: #423f72;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(255,204,0,0.35);
 }
 
+/* Message de bienvenue */
+.hdr-welcome {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.75);
+  white-space: nowrap;
+}
+.hdr-welcome strong { color: var(--hdr-accent); }
+
+/* Bouton déconnexion */
 .hdr-logout {
-  display: flex; align-items: center; gap: 5px;
-  margin-left: auto;
-  background: rgba(239,68,68,0.12);
-  border: 1px solid rgba(239,68,68,0.28);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(239,68,68,0.15);
+  border: 1px solid rgba(239,68,68,0.3);
+  border-radius: 20px;
+  padding: 6px 14px;
   color: #fca5a5;
-  padding: 5px 12px;
-  border-radius: 8px;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.85rem; font-weight: 500;
+  font-size: 0.88rem;
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: var(--hdr-tr);
+  white-space: nowrap;
 }
-.hdr-logout:hover {
-  background: rgba(239,68,68,0.28);
-  border-color: #ef4444;
-  color: #fff;
-}
+.hdr-logout:hover { background: rgba(239,68,68,0.3); color: #fff; }
 
-/* Mobile nav backdrop */
-.hdr-nav-backdrop {
-  display: none;
-}
+/* ══════════════════════════════════════
+   RESPONSIVE MOBILE ≤ 768px
+══════════════════════════════════════ */
+@media (max-width: 768px) {
 
-/* ══════════════════════════════════════════════════════════
-   RESPONSIVE — TABLET (≤ 900px)
-══════════════════════════════════════════════════════════ */
-@media (max-width: 900px) {
+  /* Cache le centre */
   .hdr-center { display: none; }
-}
 
-/* ══════════════════════════════════════════════════════════
-   RESPONSIVE — MOBILE (≤ 640px)
-   Les contrôles (thème, langue, notifs, cart) restent visibles.
-   Le menu nav passe en panneau coulissant.
-══════════════════════════════════════════════════════════ */
-@media (max-width: 640px) {
-  .hdr-inner { padding: 12px 16px; }
-  .hdr-nav { display: none; }
-
+  /* Affiche le hamburger */
   .hdr-hamburger { display: flex; }
 
-  /* Nav mobile : panneau plein largeur sous le header */
-  .hdr-nav--open {
-    display: flex;
+  /* Logo plus petit */
+  .hdr-logo-cam,
+  .hdr-logo-buy { font-size: 1.35rem; }
+  .hdr-logo-dot  { font-size: 1.6rem; }
+
+  /* Icônes plus compactes */
+  .hdr-icon-btn { padding: 6px 8px; font-size: 0.75rem; }
+
+  /* ────────────────────────────────────
+     NAV MOBILE : panneau qui se déroule
+     sous la barre, invisible par défaut
+  ──────────────────────────────────── */
+  .hdr-nav {
     flex-direction: column;
-    align-items: stretch;
-    padding: 12px 16px 16px;
+    align-items: stretch;        /* ✅ liens pleine largeur */
     gap: 6px;
-    background: rgba(6, 14, 28, 0.97);
-    border-top: 1px solid rgba(255,255,255,0.08);
-    position: absolute;
-    top: 100%;
-    left: 0; right: 0;
-    z-index: 200;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    box-shadow: 0 12px 32px rgba(0,0,0,0.4);
-    animation: nav-slide 0.25s cubic-bezier(0.22,1,0.36,1);
-  }
-  @keyframes nav-slide {
-    from { opacity: 0; transform: translateY(-10px); }
-    to   { opacity: 1; transform: translateY(0); }
+    padding: 0 16px;
+    max-height: 0;               /* ✅ caché par défaut */
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+    background: rgba(11,34,57,0.98);
+    backdrop-filter: blur(12px);
   }
 
-  .hdr-nav-backdrop {
-    display: block;
-    position: fixed; inset: 0;
-    z-index: 199;
-    background: rgba(0,0,0,0.25);
+  /* Ouvert via JS */
+  .hdr-nav--open {
+    max-height: 500px;           /* ✅ assez grand pour tous les liens */
+    padding: 14px 16px 18px;
   }
 
+  /* Liens pleine largeur */
   .hdr-link {
-    padding: 10px 14px;
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    padding: 11px 16px;
     border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.07);
-    font-size: 0.9rem;
+    border: 1px solid rgba(255,255,255,0.1);
   }
-  .hdr-welcome { padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 4px; }
-  .hdr-logout { margin-left: 0; margin-top: 4px; padding: 10px 14px; border-radius: 10px; }
+
+  .hdr-link--cta {
+    margin-top: 4px;
+    font-size: 1rem;
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .hdr-welcome {
+    font-size: 0.9rem;
+    padding: 4px 0 6px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .hdr-logout {
+    width: 100%;
+    justify-content: center;
+    font-size: 0.95rem;
+    padding: 11px 16px;
+    border-radius: 10px;
+    margin-top: 4px;
+  }
 }
 
-/* ══════════════════════════════════════════════════════════
-   RESPONSIVE — PETIT MOBILE (≤ 400px)
-   Réduire encore les boutons de contrôle
-══════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════
+   TRÈS PETIT ≤ 400px
+══════════════════════════════════════ */
 @media (max-width: 400px) {
-  .hdr-inner { padding: 10px 12px; gap: 8px; }
-  .hdr-right { gap: 4px; }
-  .hdr-icon-btn { height: 30px; min-width: 30px; padding: 0 7px; font-size: 0.7rem; }
-  .hdr-lang-btn { min-width: 46px; }
-  /* Masquer le texte du bouton langue, garder juste l'icône */
-  .hdr-lang-btn span { display: none; }
-  .hdr-lang-btn { min-width: 30px; }
-  .hdr-logo-cam, .hdr-logo-buy { font-size: 1.35rem; }
-  .hdr-logo-dot { font-size: 1.5rem; }
+  .hdr-inner { padding: 0 12px; gap: 6px; }
+
+  .hdr-logo-cam,
+  .hdr-logo-buy { font-size: 1.15rem; }
+  .hdr-logo-dot  { font-size: 1.4rem; }
+
+  /* Cache la langue pour gagner de la place */
+  .hdr-lang-btn { display: none; }
+}
+
+/* ══════════════════════════════════════
+   BACKDROP NAV MOBILE
+══════════════════════════════════════ */
+.hdr-nav-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(0,0,0,0.5);
+  animation: bd-in 0.2s ease;
+}
+@keyframes bd-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }

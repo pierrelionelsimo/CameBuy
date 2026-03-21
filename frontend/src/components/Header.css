@@ -5,9 +5,9 @@
 ══════════════════════════════════════ */
 :root {
   --hdr-height: 70px;
-  --hdr-yellow: #2e86c0;
+  --hdr-yellow: rgb(69, 81, 192);
   --hdr-accent: #00bcd4;
-  --hdr-dark:   #1a1a2e;
+  --hdr-dark:   #f0f0f5;
   --hdr-tr:     all 0.25s ease;
 }
 
@@ -17,12 +17,11 @@
 .hdr {
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 1002;
   font-family: 'Nunito', sans-serif;
   background: transparent;
 }
 
-/* Fond animé derrière le header */
 .hdr-bg {
   position: absolute;
   inset: 0;
@@ -34,7 +33,7 @@
 }
 
 /* ══════════════════════════════════════
-   BARRE PRINCIPALE (logo + center + right)
+   BARRE PRINCIPALE
 ══════════════════════════════════════ */
 .hdr-inner {
   position: relative;
@@ -54,7 +53,6 @@
   text-decoration: none;
   display: flex;
   align-items: baseline;
-  gap: 0;
   flex-shrink: 0;
   transition: var(--hdr-tr);
 }
@@ -103,7 +101,7 @@
 }
 
 /* ══════════════════════════════════════
-   RIGHT (icônes toujours visibles)
+   RIGHT
 ══════════════════════════════════════ */
 .hdr-right {
   display: flex;
@@ -114,7 +112,6 @@
   z-index: 2;
 }
 
-/* Bouton icône générique */
 .hdr-icon-btn {
   display: flex;
   align-items: center;
@@ -137,7 +134,6 @@
   border-color: rgba(255,255,255,0.3);
 }
 
-/* Panier */
 .hdr-cart-btn {
   text-decoration: none;
   color: #ffffff;
@@ -161,7 +157,7 @@
   border: 2px solid var(--hdr-dark);
 }
 
-/* Hamburger (mobile) — caché sur desktop */
+/* Hamburger - caché sur desktop */
 .hdr-hamburger {
   display: none;
   align-items: center;
@@ -228,7 +224,7 @@
 .hdr-theme-opt.active { background: rgba(255,204,0,0.2); color: var(--hdr-yellow); }
 
 /* ══════════════════════════════════════
-   NAV (connexion / inscription / liens)
+   NAV
 ══════════════════════════════════════ */
 .hdr-nav {
   position: relative;
@@ -257,7 +253,6 @@
   border-color: rgba(255,255,255,0.2);
 }
 
-/* Bouton CTA Inscription */
 .hdr-link--cta {
   background: var(--hdr-yellow);
   color: var(--hdr-dark) !important;
@@ -265,13 +260,13 @@
   border-color: var(--hdr-yellow);
 }
 .hdr-link--cta:hover {
-  background: #423f72;
-  border-color: #423f72;
+  background: rgb(69, 81, 192, 0);
+  border-color: rgb(69, 81, 192, 0);
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(255,204,0,0.35);
+  box-shadow: 0 4px 14px rgba(199, 192, 166, 0.35);
+  
 }
 
-/* Message de bienvenue */
 .hdr-welcome {
   font-size: 0.88rem;
   color: rgba(255,255,255,0.75);
@@ -279,7 +274,6 @@
 }
 .hdr-welcome strong { color: var(--hdr-accent); }
 
-/* Bouton déconnexion */
 .hdr-logout {
   display: flex;
   align-items: center;
@@ -303,57 +297,60 @@
 ══════════════════════════════════════ */
 @media (max-width: 768px) {
 
-  /* Cache le centre */
   .hdr-center { display: none; }
-
-  /* Affiche le hamburger */
   .hdr-hamburger { display: flex; }
 
-  /* Logo plus petit */
   .hdr-logo-cam,
   .hdr-logo-buy { font-size: 1.35rem; }
   .hdr-logo-dot  { font-size: 1.6rem; }
 
-  /* Icônes plus compactes */
   .hdr-icon-btn { padding: 6px 8px; font-size: 0.75rem; }
 
-  /* ────────────────────────────────────
-     NAV MOBILE : panneau qui se déroule
-     sous la barre, invisible par défaut
-  ──────────────────────────────────── */
+  /* ── NAV MOBILE ──
+     Panneau qui se déroule SANS backdrop bloquant
+     Le header entier a z-index:1002, donc la nav
+     passe par-dessus le contenu de la page normalement */
   .hdr-nav {
     flex-direction: column;
-    align-items: stretch;        /* ✅ liens pleine largeur */
+    align-items: stretch;
     gap: 6px;
     padding: 0 16px;
-    max-height: 0;               /* ✅ caché par défaut */
+    max-height: 0;
     overflow: hidden;
     transition: max-height 0.35s ease, padding 0.35s ease;
     background: rgba(11,34,57,0.98);
     backdrop-filter: blur(12px);
+    /* ✅ z-index élevé pour passer au-dessus de la page */
+    position: relative;
+    z-index: 1003;
   }
 
-  /* Ouvert via JS */
   .hdr-nav--open {
-    max-height: 500px;           /* ✅ assez grand pour tous les liens */
+    max-height: 500px;
     padding: 14px 16px 18px;
   }
 
-  /* Liens pleine largeur */
   .hdr-link {
     width: 100%;
     text-align: center;
     font-size: 1rem;
-    padding: 11px 16px;
+    padding: 12px 16px;
     border-radius: 10px;
     border: 1px solid rgba(255,255,255,0.1);
+    /* ✅ pointer-events explicitement actif */
+    pointer-events: auto;
+    position: relative;
+    z-index: 1004;
   }
 
   .hdr-link--cta {
-    margin-top: 4px;
+    text-align: center;
     font-size: 1rem;
-    padding: 12px;
+    padding: 13px;
     border-radius: 10px;
+    pointer-events: auto;
+    position: relative;
+    z-index: 1004;
   }
 
   .hdr-welcome {
@@ -367,9 +364,11 @@
     width: 100%;
     justify-content: center;
     font-size: 0.95rem;
-    padding: 11px 16px;
+    padding: 12px 16px;
     border-radius: 10px;
-    margin-top: 4px;
+    pointer-events: auto;
+    position: relative;
+    z-index: 1004;
   }
 }
 
@@ -378,26 +377,19 @@
 ══════════════════════════════════════ */
 @media (max-width: 400px) {
   .hdr-inner { padding: 0 12px; gap: 6px; }
-
   .hdr-logo-cam,
   .hdr-logo-buy { font-size: 1.15rem; }
   .hdr-logo-dot  { font-size: 1.4rem; }
-
-  /* Cache la langue pour gagner de la place */
   .hdr-lang-btn { display: none; }
 }
 
 /* ══════════════════════════════════════
-   BACKDROP NAV MOBILE
+   BACKDROP NAV MOBILE — SUPPRIMÉ ✅
+   On n'utilise plus de backdrop qui
+   bloque les clics sur les liens.
+   La fermeture se fait uniquement via
+   le bouton hamburger (X).
 ══════════════════════════════════════ */
 .hdr-nav-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 999;
-  background: rgba(0,0,0,0.5);
-  animation: bd-in 0.2s ease;
-}
-@keyframes bd-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  display: none !important; /* ✅ désactivé complètement */
 }

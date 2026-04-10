@@ -2,10 +2,9 @@ import os
 from pathlib import Path
 from datetime import timedelta
 import dj_database_url
-import dotenv
 
-# Chargement automatique du fichier .env
-dotenv.load_dotenv()
+
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 

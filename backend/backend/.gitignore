@@ -1,0 +1,17 @@
+# Environnement et Secrets
+.env
+__pycache__/
+*.py[cod]
+
+# Fichiers statiques et media locaux
+staticfiles/
+media/
+db.sqlite3
+
+# Environnement virtuel
+venv/
+.venv/
+env/
+
+# OS
+.DS_Store

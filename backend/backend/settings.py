@@ -3,6 +3,8 @@ from pathlib import Path
 from datetime import timedelta
 import dj_database_url
 
+from dotenv import load_dotenv
+load_dotenv()  # Cela charge les variables de ton .env dans os.environ
 
 
 
@@ -67,11 +69,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-# --- BASE DE DONNÉES ---
+# On cherche d'abord DATABASE_URL (Render), sinon on prend DATABASE_URL_LOCAL (.env)
+tmp_db_url = os.environ.get('DATABASE_URL') or os.environ.get('DATABASE_URL_LOCAL')
+
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL_LOCAL'),
-        conn_max_age=600
+        default=tmp_db_url,
+        conn_max_age=600,
+        conn_health_checks=True,
     )
 }
 

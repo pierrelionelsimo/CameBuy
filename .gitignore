@@ -1,0 +1,25 @@
+# Variables d'environnement — JAMAIS sur GitHub
+.env
+*.env
+.env.*
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+
+# Node
+node_modules/
+dist/
+.next/
+
+# Docker
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
